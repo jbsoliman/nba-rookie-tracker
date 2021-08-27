@@ -24,6 +24,13 @@ def isint(x):
 
 date_now = datetime.now()
 
+# ------------------------ ALL EDITS ARE MADE HERE --------------------------------------------------------#
+current_rookie = "Tyrese Haliburton"
+# NBA season we will be analyzing
+year = 2021
+# Index of current rookie in bballref rookie page (add 1 for indexing starting at 0)
+current_rookie_index = 32
+
 
 #HTML Skeleton
 def make_html(html,table_title):
@@ -32,17 +39,17 @@ def make_html(html,table_title):
     <head>
     <link rel="icon" href="https://user-images.githubusercontent.com/16616543/38898937-6a56f3b0-4264-11e8-997d-139dccf4314d.png">
     <link rel="stylesheet" type="text/css" href="style.css">
-    <title>RJ Barrett Rookie Stat Tracker</title>
+    <title>{} Rookie Stat Tracker</title>
     </head>
     <body>
 
-        <h1><a href="https://jbsoliman.github.io/rj-barrett">RJ Barrett - Rookie of the Year?</a></h1>
+        <h1><a href="https://jbsoliman.github.io/nba-rookie-tracker">{} - Rookie of the Year?</a></h1>
         <h2>Here are the facts. </h2>
-        <h3>Among all Rookies, RJ Barrett is:
+        <h3>Among all Rookies, {} is:
         <ul>
-        <li><a href="https://jbsoliman.github.io/rj-barrett/ppg">#{} in Points Per Game</a></li>
-        <li><a href="https://jbsoliman.github.io/rj-barrett/rpg">#{} in Rebounds Per Game</a></li>
-        <li><a href="https://jbsoliman.github.io/rj-barrett/apg">#{} in Assists Per Game</a></li>
+        <li><a href="https://jbsoliman.github.io/nba-rookie-tracker/ppg">#{} in Points Per Game</a></li>
+        <li><a href="https://jbsoliman.github.io/nba-rookie-tracker/rpg">#{} in Rebounds Per Game</a></li>
+        <li><a href="https://jbsoliman.github.io/nba-rookie-tracker/apg">#{} in Assists Per Game</a></li>
         </ul>
         </h3>
 
@@ -50,7 +57,7 @@ def make_html(html,table_title):
         {}
         <h2>Updated on {}.</h2>
     </body>
-    </HTML>""".format(rj_ppg_rank,rj_rpg_rank,rj_apg_rank,table_title,html,date_now)
+    </HTML>""".format(current_rookie,current_rookie,current_rookie,rj_ppg_rank,rj_rpg_rank,rj_apg_rank,table_title,html,date_now)
 
     return html_skeleton
 
@@ -100,8 +107,7 @@ def make_css(row):
 
 
 
-# NBA season we will be analyzing
-year = 2020
+
 
 ##Default Rookie URL
 url = "https://www.basketball-reference.com/leagues/NBA_{}_rookies.html".format(year)
@@ -138,6 +144,7 @@ headers[25] = 'RPG'
 headers[26] = 'APG'
 
 
+
 stats = pd.DataFrame(player_stats, columns = headers)
 stats["mp_rank"]=stats["MP"].rank(ascending=False,method='first')
 stats["ppg_rank"]=stats["PPG"].rank(ascending=False,method='first')
@@ -149,11 +156,11 @@ stats["apg_rank"]=stats["APG"].rank(ascending=False,method='first')
 stats = stats.dropna(axis=0, how='any', thresh=None, subset=None, inplace=False)
 
 #retreive values for RJ Barrett
-rj_mp_rank = stats.at[1,'mp_rank']
-rj_ppg_rank = stats.at[1,'ppg_rank']
-#rj_blk_rank = stats.at[1,'blk_rank']
-rj_rpg_rank = stats.at[1,'rpg_rank']
-rj_apg_rank = stats.at[1,'apg_rank']
+rj_mp_rank = stats.at[current_rookie_index,'mp_rank']
+rj_ppg_rank = stats.at[current_rookie_index,'ppg_rank']
+#rj_blk_rank = stats.at[current_rookie_index,'blk_rank']
+rj_rpg_rank = stats.at[current_rookie_index,'rpg_rank']
+rj_apg_rank = stats.at[current_rookie_index,'apg_rank']
 
 #Converting ranks to INTS for HTML
 rj_mp_rank = int(rj_mp_rank)
