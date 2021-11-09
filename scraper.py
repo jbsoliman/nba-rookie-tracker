@@ -1,7 +1,7 @@
-from urllib.request import urlopen
 from bs4 import BeautifulSoup
 from datetime import datetime
 import pandas as pd
+import urllib.request
 
 
 def isfloat(x):
@@ -25,11 +25,11 @@ def isint(x):
 date_now = datetime.now()
 
 # ------------------------ ALL EDITS ARE MADE HERE --------------------------------------------------------#
-current_rookie = "Tyrese Haliburton"
+current_rookie = "Jalen Green"
 # NBA season we will be analyzing
-year = 2021
+year = 2022
 # Index of current rookie in bballref rookie page (add 1 for indexing starting at 0)
-current_rookie_index = 32
+current_rookie_index = 25
 
 
 #HTML Skeleton
@@ -112,7 +112,7 @@ def make_css(row):
 ##Default Rookie URL
 url = "https://www.basketball-reference.com/leagues/NBA_{}_rookies.html".format(year)
 
-html = urlopen(url)
+html = urllib.request.urlopen(url)
 soup = BeautifulSoup(html, "html.parser")
 #soup = soup.encode("utf-8")
 
