@@ -20,7 +20,6 @@ Created for educational purposes only.
     * Highlights a selected rookie row as well as highlights specific row/column on mouse hover
 
 
-+test update
 
 #### Update:
 * Added daily updating of pages through Windows Task Scheduler
